@@ -1,7 +1,7 @@
 # /usr/bin/python3
 
 import sys
-import zipfile
+from zipfile import ZipFile, ZIP_DEFLATED
 from datetime import datetime
 from pymarc import map_xml
 
@@ -10,14 +10,14 @@ f = open("isbn"+filedate+".txt", "a")
 
 def print_isbn(r):
     tempISBN=r.isbn()
-    print('processing record '+tempISBN, end='\r')
+    print(tempISBN, end='\r')
     if tempISBN:
         f.write(tempISBN+"\n")
 
 map_xml(print_isbn, sys.argv[1])
 f.close()
 print('zipping records', end='\r')
-with zipfile.ZipFile("isbn"+filedate+".zip", "w") as myzip:
+with ZipFile.ZipFile("isbn"+filedate+".zip", "w", ZIP_DEFLATED, compresslevel=5) as myzip:
     myzip.write("isbn"+filedate+".txt")
 myzip.close()
 print("Done")
