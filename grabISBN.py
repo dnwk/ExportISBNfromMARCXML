@@ -17,7 +17,7 @@ def print_isbn(r):
 map_xml(print_isbn, sys.argv[1])
 f.close()
 print('zipping records', end='\r')
-with ZipFile.ZipFile("isbn"+filedate+".zip", "w", ZIP_DEFLATED, compresslevel=5) as myzip:
+with ZipFile("isbn"+filedate+".zip", "w", ZIP_DEFLATED, compresslevel=5) as myzip:
     myzip.write("isbn"+filedate+".txt")
 myzip.close()
 print("Done")
